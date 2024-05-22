@@ -4,3 +4,36 @@ function add_pet(){
 
     container.innerHTML += html
 }
+
+function exibir_form(type) {
+    add_cliente = document.getElementById("adicionar-cliente")
+    att_cliente = document.getElementById("atualizar-cliente")
+
+    if(type == "1"){
+        att_cliente.style.display = "none"
+        add_cliente.style.display = "block"
+    } else if(type == "2"){
+        att_cliente.style.display = "block"
+        add_cliente.style.display = "none"
+    }
+}
+
+function dados_cliente() {
+    cliente = document.getElementById("cliente-select")
+    csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    id_cliente = cliente.value
+    data = new FormData()
+    data.append('id_cliente', id_cliente)
+
+    console.log(csrf_token.value)
+    fetch("/clientes/atualiza_cliente", {
+        method: "POST",
+        headers: {
+            'X-CSRFToken': csrf_token
+        },
+        body: data
+    }).then(response => response.json()).then(function(data){
+        console.log("teste")
+    })
+}
