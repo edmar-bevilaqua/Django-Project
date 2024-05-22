@@ -75,10 +75,16 @@ WSGI_APPLICATION = "J&J.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DATABASE_URL = "postgres:admin@localhost/petshop"
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "petshop",
+        "USER" : "postgres",
+        "PASSWORD" : "admin",
+        "HOST" : "localhost",
+        "PORT" : "5432"
     }
 }
 

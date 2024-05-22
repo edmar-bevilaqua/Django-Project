@@ -21,25 +21,46 @@
 				<div class="row">
 					<div class="col-md">
 						<p>Nome:</p>
-						<input type="text" class="form-control" placeholder="Primeiro nome" name="nome">
+						<input type="text" class="form-control" placeholder="Primeiro nome" name="nome" value="{{nome}}">
 					</div>
 					<div class="col-md">
 						<p>Sobrenome:</p>
-						<input type="text" class="form-control" placeholder="Sobrenome" name="sobrenome">
+						<input type="text" class="form-control" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}">
 					</div>
 				</div>
 				<br>
 				<p>E-mail:</p>
-				<input type="email" class="form-control" placeholder="nome@email.com" name="email">
+				<input type="email" class="form-control" placeholder="nome@email.com" name="email" value="{{email}}">
 				<br>
 				<p>CPF:</p>
-				<input type="text" class="form-control" placeholder="___.___.___-__" name="cpf">
+				<input type="text" class="form-control" placeholder="___.___.___-__" name="cpf" value="{{cpf}}">
 				<hr style="background-color:gray;">
 				<div class="add-pets">
 					<h3>Pets</h3>
 					<span class="btn-add-pets" onclick="add_pet()">+ Adicionar um Pet</span>
 					<div id="form-pet">
-
+						{% for pet, data, porte in pets %}
+							<br>
+							<div class='row'>
+								<div class='col-md'>
+									<label for='pet'>Nome do Pet:</label>
+									<input type='text' placeholder='Nome do Pet' class='form-control' name='pet' value="{{pet}}">
+								</div>
+								<div class='col-md'>
+									<label for='data-nascimento'>Data de Nascimento:</label>
+									<input type='date' placeholder='DD/MM/AAAA' class='form-control' name='data-nascimento' value="{{data}}">
+								</div>
+								<div class='col-md'>
+									<label for='porte'>Porte do Pet:</label>
+									<select name='porte' class='form-control'>
+										<option value="{{porte}}" selected hidden>{{porte}}</option>
+										<option value='pequeno'>Pequeno</option>
+										<option value='medio'>Médio</option>
+										<option value='grande'>Grande</option>
+									</select>
+								</div>
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 				<br>
