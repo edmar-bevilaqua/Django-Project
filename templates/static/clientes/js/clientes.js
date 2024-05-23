@@ -1,3 +1,5 @@
+//const { header } = require("express/lib/request")
+
 function add_pet(){
     container = document.getElementById('form-pet')
     html = "<br> <div class='row'> <div class='col-md'> <label for='pet'>Nome do Pet:</label><input type='text' placeholder='Nome do Pet' class='form-control' name='pet'> </div> <div class='col-md'> <label for='data-nascimento'>Data de Nascimento:</label><input type='date' placeholder='DD/MM/AAAA' class='form-control' name='data-nascimento'> </div> <div class='col-md'> <label for='porte'>Porte do Pet:</label> <select name='porte' class='form-control'><option value='pequeno'>Pequeno</option><option value='medio'>Médio</option><option value='grande'>Grande</option></select> </div> </div>"
@@ -27,11 +29,10 @@ function dados_cliente() {
     data.append('id_cliente', id_cliente)
 
     console.log(csrf_token.value)
-    fetch("/clientes/atualiza_cliente", {
-        method: "POST",
-        headers: {
-            'X-CSRFToken': csrf_token
-        },
+    console.log(data)
+    fetch('/clientes/atualizar_cliente', {
+        method:'POST',
+        headers:{'X-CSRFToken' : csrf_token},
         body: data
     }).then(response => response.json()).then(function(data){
         console.log("teste")

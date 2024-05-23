@@ -43,9 +43,8 @@ def clientes(request):
     print(request.POST)
     return HttpResponse("teste")
 
-def atualiza_cliente(request):
+def atualizar_cliente(request):
     id_cliente = request.POST.get('id_cliente')
     Cliente.objects.filter(id=id_cliente)
-    print("teste")
     return JsonResponse({"teste": 1})
         
