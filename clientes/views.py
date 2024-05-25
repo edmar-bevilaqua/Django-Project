@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Cliente, Pet
+from django.core import serializers
+import json
 import re
 
 def clientes(request):
+    clientes_list = Cliente.objects.all()
     if request.method == "GET":
         clientes_list = Cliente.objects.all()
         return render(request, 'clientes.html', {'clientes' : clientes_list})
@@ -38,13 +41,13 @@ def clientes(request):
                     cliente = cliente
                 )
                 pet.save()
-        
-        
-    print(request.POST)
-    return HttpResponse("teste")
+    return render(request, 'clientes.html', {'clientes' : clientes_list})
 
 def atualizar_cliente(request):
     id_cliente = request.POST.get('id_cliente')
-    Cliente.objects.filter(id=id_cliente)
-    return JsonResponse({"teste": 1})
+    query_cliente = Cliente.objects.filter(id=id_cliente)
+    json_cliente = serializers.serialize('json', query_cliente)
+    json_cliente = json.loads(json_cliente)[0]['fields']
+    print(json_cliente)
+    return JsonResponse(json_cliente)
         

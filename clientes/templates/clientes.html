@@ -20,19 +20,19 @@
 			<form action="{% url 'clientes' %}" method="POST">{% csrf_token %}
 				<div class="row">
 					<div class="col-md">
-						<p>Nome:</p>
+						<label for="nome">Nome:</label>
 						<input type="text" class="form-control" placeholder="Primeiro nome" name="nome" value="{{nome}}">
 					</div>
 					<div class="col-md">
-						<p>Sobrenome:</p>
+						<label for="sobrenome">Sobrenome:</label>
 						<input type="text" class="form-control" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}">
 					</div>
 				</div>
 				<br>
-				<p>E-mail:</p>
+				<label for="email">E-Mail:</label>
 				<input type="email" class="form-control" placeholder="nome@email.com" name="email" value="{{email}}">
 				<br>
-				<p>CPF:</p>
+				<label for="cpf">CPF:</label>
 				<input type="text" class="form-control" placeholder="___.___.___-__" name="cpf" value="{{cpf}}">
 				<hr style="background-color:gray;">
 				<div class="add-pets">
@@ -77,6 +77,25 @@
 				<option value="{{cliente.id}}">{{cliente.nome}}</option>
 				{% endfor %}
 			</select>
+			<div id="form-att-cliente">
+				<form action="">
+					<div class="row">
+						<div class="col-md">
+							<label for="att-nome">Nome:</label>
+							<input type="text" class="form-control" placeholder="Primeiro nome" name="att-nome" id="att-nome">
+						</div>
+						<div class="col-md">
+							<label for="att-sobrenome">Sobrenome:</label>
+							<input type="text" class="form-control" placeholder="Sobrenome" name="att-sobrenome" id="att-sobrenome">
+						</div>
+					</div>
+					<label for="att-email">E-Mail:</label>
+					<input type="email" class="form-control" placeholder="nome@email.com" name="att-email" id="att-email">
+					
+					<label for="att-cpf">CPF:</label>
+					<input type="text" class="form-control" placeholder="___.___.___-__" name="att-cpf" id="att-cpf">
+				</form>
+			</div>
 		</div>
 	</div>
 	<script src="{% static 'clientes/js/clientes.js' %}"></script>

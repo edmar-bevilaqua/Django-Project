@@ -35,3 +35,12 @@
 #atualizar-cliente {
     display: none;
 }
+
+#form-att-cliente {
+    display: none;
+    margin-top: 30px;
+}
+
+#form-att-cliente label {
+    margin-top: 15px;
+}

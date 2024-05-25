@@ -28,13 +28,23 @@ function dados_cliente() {
     data = new FormData()
     data.append('id_cliente', id_cliente)
 
-    console.log(csrf_token.value)
-    console.log(data)
     fetch('/clientes/atualizar_cliente', {
         method:'POST',
         headers:{'X-CSRFToken' : csrf_token},
         body: data
     }).then(response => response.json()).then(function(data){
-        console.log("teste")
+        document.getElementById('form-att-cliente').style.display = 'block'
+        
+        att_nome = document.getElementById('att-nome')
+        att_nome.value = data['nome']
+
+        att_sobrenome = document.getElementById('att-sobrenome')
+        att_sobrenome.value = data['sobrenome']
+
+        att_email = document.getElementById('att-email')
+        att_email.value = data['email']
+
+        att_cpf = document.getElementById('att-cpf')
+        att_cpf.value = data['cpf']
     })
 }
