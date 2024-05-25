@@ -45,9 +45,15 @@ def clientes(request):
 
 def atualizar_cliente(request):
     id_cliente = request.POST.get('id_cliente')
+
     query_cliente = Cliente.objects.filter(id=id_cliente)
-    json_cliente = serializers.serialize('json', query_cliente)
-    json_cliente = json.loads(json_cliente)[0]['fields']
+    query_pets = Pet.objects.filter(cliente=query_cliente[0])
+
+    json_cliente = json.loads(serializers.serialize('json', query_cliente))[0]['fields']
+    json_pets = json.loads(serializers.serialize('json', query_pets))
+
+    print(json_pets)
+
     print(json_cliente)
     return JsonResponse(json_cliente)
         
