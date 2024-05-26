@@ -47,8 +47,9 @@
 
 #lista-pets {
     margin-top: 45px;
+    padding-bottom: 20px;
 }
 
-#lista-pets form, #atualizar {
+#lista-pets form {
     margin-top: 15px;
 }

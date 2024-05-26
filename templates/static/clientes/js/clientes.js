@@ -54,27 +54,27 @@ function dados_cliente() {
         for(i=0; i<data['pets'].length; i++){
             console.log(data['pets'][i])
             
-            div_pets.innerHTML += "<form action='/clientes/atualiza-pets/'" + data['pets'][i]['id'] + "' method='POST'>\
+            div_pets.innerHTML += "<form action='/clientes/atualiza-pet/" + data['pets'][i]['id'] + "' method='POST'>\
                                         <div class='row'>\
                                             <div class='col-md'>\
                                                 <label for='pet'>Nome do Pet:</label>\
-                                                <input type='text' placeholder='Nome do Pet' class='form-control' name='pet' value='" + data['pets'][i]['nome_pet'] + "'>\
+                                                <input type='text' placeholder='Nome do Pet' class='form-control' name='pet' value='" + data['pets'][i]['fields']['nome_pet'] + "'>\
                                             </div>\
                                             <div class='col-md'>\
                                                 <label for='data-nascimento'>Data de Nascimento:</label>\
-                                                <input type='date' placeholder='DD/MM/AAAA' class='form-control' name='data-nascimento' value='" + data['pets'][i]['data_nascimento_pet'] + "'>\
+                                                <input type='date' placeholder='DD/MM/AAAA' class='form-control' name='data-nascimento' value='" + data['pets'][i]['fields']['data_nascimento_pet'] + "'>\
                                             </div>\
                                             <div class='col-md'>\
                                                 <label for='porte'>Porte do Pet:</label>\
                                                 <select name='porte' class='form-control'>\
-                                                    <option value='" + data['pets'][i]['nome_pet'] + "' selected hidden>" + data['pets'][i]['porte'] + "</option>\
+                                                    <option value='" + data['pets'][i]['fields']['porte'] + "' selected hidden>" + data['pets'][i]['fields']['porte'] + "</option>\
                                                     <option value='pequeno'>Pequeno</option>\
                                                     <option value='medio'>Médio</option>\
                                                     <option value='grande'>Grande</option>\
                                                 </select>\
                                             </div>\
+                                            <input type='submit' class='btn btn-success' value='Atualizar' id='atualizar'> </form>\
                                         </div>"
         }
-        div_pets.innerHTML += "<input type='submit' class='btn btn-success' value='Atualizar' id='atualizar'> </form>"
     })
 }

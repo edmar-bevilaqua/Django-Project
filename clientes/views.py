@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Cliente, Pet
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 import json
 import re
 
@@ -23,6 +24,8 @@ def clientes(request):
         if cliente.exists():
             return render(request, 'clientes.html', {'nome':nome, 'sobrenome':sobrenome, 'email':email, 'pets' : zip(pets, datas_nascimentos, portes)})
         elif not re.fullmatch(re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'), email):
+            return render(request, 'clientes.html', {'nome':nome, 'sobrenome':sobrenome, 'cpf':cpf, 'pets' : zip(pets, datas_nascimentos, portes)})
+        elif Cliente.objects.filter(email=email).exists():
             return render(request, 'clientes.html', {'nome':nome, 'sobrenome':sobrenome, 'cpf':cpf, 'pets' : zip(pets, datas_nascimentos, portes)})
         else:
             cliente = Cliente(
@@ -51,9 +54,25 @@ def atualizar_cliente(request):
 
     json_cliente = json.loads(serializers.serialize('json', query_cliente))[0]['fields']
     json_pets = json.loads(serializers.serialize('json', query_pets))
-    json_pets = [pet['fields'] for pet in json_pets]
+    json_pets = [{'fields': pet['fields'], 'id': pet['pk']} for pet in json_pets]
     
     json_response = {'clientes': json_cliente, 'pets': json_pets}
 
     return JsonResponse(json_response)
         
+@csrf_exempt
+def atualiza_pet(request, id):
+    pet = Pet.objects.get(id=id)
+
+    nome_pet = request.POST.get('pet')
+    data_nascimento = request.POST.get('data-nascimento')
+    porte = request.POST.get('porte')
+
+    if (pet.nome_pet != nome_pet) or (str(pet.data_nascimento_pet) != data_nascimento) or (pet.porte != porte):
+        pet.nome_pet = nome_pet
+        pet.data_nascimento_pet = data_nascimento
+        pet.porte = porte
+        pet.save()
+        return HttpResponse("Dados alterados")
+    else:
+        return HttpResponse("Os dados não foram modificados")
