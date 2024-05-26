@@ -51,9 +51,9 @@ def atualizar_cliente(request):
 
     json_cliente = json.loads(serializers.serialize('json', query_cliente))[0]['fields']
     json_pets = json.loads(serializers.serialize('json', query_pets))
+    json_pets = [pet['fields'] for pet in json_pets]
+    
+    json_response = {'clientes': json_cliente, 'pets': json_pets}
 
-    print(json_pets)
-
-    print(json_cliente)
-    return JsonResponse(json_cliente)
+    return JsonResponse(json_response)
         

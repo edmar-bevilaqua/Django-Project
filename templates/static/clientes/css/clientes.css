@@ -44,3 +44,11 @@
 #form-att-cliente label {
     margin-top: 15px;
 }
+
+#lista-pets {
+    margin-top: 45px;
+}
+
+#lista-pets form, #atualizar {
+    margin-top: 15px;
+}
