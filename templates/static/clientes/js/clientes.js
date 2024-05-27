@@ -26,7 +26,6 @@ function add_pet(){
 
 function add_pet_atualiza(){
     cliente = document.getElementById("cliente-select").value
-    console.log(cliente)
     container = document.getElementById('add-pets')
     html = "<br><form action='/clientes/add-pet/" + cliente + "' method='POST'>\
                     <div class='row'>\
@@ -120,6 +119,7 @@ function dados_cliente() {
                                                 </select>\
                                             </div>\
                                             <input type='submit' class='btn btn-success' value='Atualizar' id='atualizar'> </form>\
+                                            <a class= 'btn btn-danger' href='/clientes/deleta-pet/" + data['pets'][i]['id'] + "'>Excluir</a>\
                                         </div>"
         }
     })

@@ -58,3 +58,11 @@
 #opt-add-pets {
     display: none;
 }
+
+a.btn.btn-danger {
+    margin-left: 10px;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}

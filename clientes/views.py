@@ -89,3 +89,9 @@ def atualiza_pet(request, id):
         return HttpResponse("Dados alterados")
     else:
         return HttpResponse("Os dados não foram modificados")
+
+def deleta_pet(request, id):
+    pet = Pet.objects.get(id=id)
+    
+    pet.delete()
+    return HttpResponse('Pet deletado :(')
