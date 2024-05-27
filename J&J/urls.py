@@ -22,5 +22,6 @@ import clientes
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('clientes/', include('clientes.urls')),
+    path("servicos/", include('servicos.urls')),
     path("", clientes.views.clientes)
 ]
