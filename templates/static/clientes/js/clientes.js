@@ -80,7 +80,10 @@ function dados_cliente() {
         document.getElementById('form-att-cliente').style.display = 'block'
         document.getElementById('opt-add-pets').style.display = 'block'
         document.getElementById('add-pets').innerHTML = ""
-        
+
+        id = document.getElementById('id')
+        id.value = data['cliente_id']
+
         att_nome = document.getElementById('att-nome')
         att_nome.value = data['clientes']['nome']
 
@@ -96,6 +99,7 @@ function dados_cliente() {
         div_pets = document.getElementById('lista-pets')
 
         div_pets.innerHTML = ""
+        console.log(data)
 
         for(i=0; i<data['pets'].length; i++){
             
@@ -121,6 +125,37 @@ function dados_cliente() {
                                             <input type='submit' class='btn btn-success' value='Atualizar' id='atualizar'> </form>\
                                             <a class= 'btn btn-danger' href='/clientes/deleta-pet/" + data['pets'][i]['id'] + "'>Excluir</a>\
                                         </div>"
+        }
+    })
+}
+
+function update_cliente() {
+    nome = document.getElementById('att-nome').value
+    sobrenome = document.getElementById('att-sobrenome').value
+    email = document.getElementById('att-email').value
+    cpf = document.getElementById('att-cpf').value
+    id = document.getElementById('id').value
+
+    csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    fetch('/clientes/atualiza-cliente/' + id, {
+        method: 'POST',
+        headers:{'X-CSRFToken' : csrf_token},
+        body: JSON.stringify({
+            nome: nome,
+            sobrenome: sobrenome,
+            email: email,
+            cpf: cpf,
+        })
+    }).then(result => result.json()).then(function(data){
+        if(data['status'] == '200'){
+            nome = data['nome']
+            sobrenome = data['sobrenome']
+            email = data['email']
+            cpf = data['cpf']
+            console.log('Dados alterados com sucesso!')
+        }else{
+            console.log('Ocorreu algum erro!')
         }
     })
 }

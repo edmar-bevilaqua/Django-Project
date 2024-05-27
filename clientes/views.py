@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 from .models import Cliente, Pet
 from django.core import serializers
@@ -57,7 +58,7 @@ def atualizar_cliente(request):
     json_pets = json.loads(serializers.serialize('json', query_pets))
     json_pets = [{'fields': pet['fields'], 'id': pet['pk']} for pet in json_pets]
     
-    json_response = {'clientes': json_cliente, 'pets': json_pets}
+    json_response = {'clientes': json_cliente, 'pets': json_pets, 'cliente_id':int(id_cliente)}
 
     return JsonResponse(json_response)
 
@@ -71,7 +72,7 @@ def add_pet(request, id):
         cliente = cliente   
     )
     pet.save()
-    return redirect('../')
+    return redirect(reverse(clientes))
 
 @csrf_exempt
 def atualiza_pet(request, id):
@@ -91,7 +92,32 @@ def atualiza_pet(request, id):
         return HttpResponse("Os dados não foram modificados")
 
 def deleta_pet(request, id):
-    pet = Pet.objects.get(id=id)
+    try:
+        pet = Pet.objects.get(id=id)
+        
+        pet.delete()
+        return redirect(reverse('clientes')+f'?aba=atualizar_cliente&id_cliente={id}')
+    except:
+        return redirect(reverse('clientes')+f'?aba=atualizar_cliente&id_cliente={id}')
+
+def atualiza_cliente(request, id):
+    body = json.loads(request.body)
+        
+    nome = body['nome']
+    sobrenome = body['sobrenome']
+    email = body['email']
+    cpf = body['cpf']
     
-    pet.delete()
-    return HttpResponse('Pet deletado :(')
+    cliente = get_object_or_404(Cliente, id=id)
+    
+    cliente.nome = nome
+    cliente.sobrenome = sobrenome
+    cliente.email = email
+    cliente.cpf = cpf
+    
+    try:
+        cliente.save()
+        return JsonResponse({'status':'200', 'nome': nome, 'sobrenome': sobrenome, 'email': email, 'cpf': cpf})
+    except:
+        print('Atualização no banco falhou!')
+        return JsonResponse({'status':'500', 'nome': nome, 'sobrenome': sobrenome, 'email': email, 'cpf': cpf})
