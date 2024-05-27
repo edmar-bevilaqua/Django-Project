@@ -39,6 +39,7 @@
 #form-att-cliente {
     display: none;
     margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 #form-att-cliente label {
@@ -52,4 +53,8 @@
 
 #lista-pets form {
     margin-top: 15px;
+}
+
+#opt-add-pets {
+    display: none;
 }

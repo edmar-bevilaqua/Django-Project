@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Cliente, Pet
 from django.core import serializers
@@ -35,6 +35,7 @@ def clientes(request):
                 cpf = cpf
             )
             cliente.save()
+            print(cliente)
             
             for pet, data, porte in zip(pets, datas_nascimentos, portes):
                 pet = Pet(
@@ -59,7 +60,19 @@ def atualizar_cliente(request):
     json_response = {'clientes': json_cliente, 'pets': json_pets}
 
     return JsonResponse(json_response)
-        
+
+@csrf_exempt
+def add_pet(request, id):
+    cliente = Cliente.objects.filter(id = id)[0]
+    pet = Pet(
+        nome_pet = request.POST.get('pet'),
+        data_nascimento_pet = request.POST.get('data-nascimento'),
+        porte = request.POST.get('porte'),
+        cliente = cliente   
+    )
+    pet.save()
+    return redirect('../')
+
 @csrf_exempt
 def atualiza_pet(request, id):
     pet = Pet.objects.get(id=id)
