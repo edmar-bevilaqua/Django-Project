@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J&J - New Service</title>
-</head>
-<body>
-    <p>ESTE É UM NOVO SERVIÇO AINDA EM DESENVOLVIMENTO</p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+
+{% endblock %}
+
+{% block 'dashboard' %}
+    <div class="container">
+        <form action="{% url 'new_service' %}" method="POST"> {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success">
+        </form>
+    </div>
+{% endblock %}
