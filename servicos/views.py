@@ -18,3 +18,7 @@ def new_service(request):
         else:
             print("Houve um problema salvando o arquivo")
             return render(request, 'new_service.html', {'form': form})
+
+def list_services(request):
+    if request.method == "GET":
+        return render(request, 'list_services.html')
