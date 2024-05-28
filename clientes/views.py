@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import re
 
+# This view is for the main page (/clientes/), it can operade either GET or POST
 def clientes(request):
     clientes_list = Cliente.objects.all()
     if request.method == "GET":
@@ -48,6 +49,7 @@ def clientes(request):
                 pet.save()
     return render(request, 'clientes.html', {'clientes' : clientes_list})
 
+# This is the view to list the informations about the client selected by the user
 def atualizar_cliente(request):
     id_cliente = request.POST.get('id_cliente')
 
@@ -62,6 +64,7 @@ def atualizar_cliente(request):
 
     return JsonResponse(json_response)
 
+# This method is used to add a new pet to the client selected by the user
 @csrf_exempt
 def add_pet(request, id):
     cliente = Cliente.objects.filter(id = id)[0]
@@ -74,6 +77,7 @@ def add_pet(request, id):
     pet.save()
     return redirect(reverse(clientes))
 
+# This method updates the information about a selected pet
 @csrf_exempt
 def atualiza_pet(request, id):
     pet = Pet.objects.get(id=id)
@@ -91,6 +95,7 @@ def atualiza_pet(request, id):
     else:
         return HttpResponse("Os dados não foram modificados")
 
+# This method deletes a pet
 def deleta_pet(request, id):
     try:
         pet = Pet.objects.get(id=id)
@@ -100,6 +105,7 @@ def deleta_pet(request, id):
     except:
         return redirect(reverse('clientes')+f'?aba=atualizar_cliente&id_cliente={id}')
 
+# This method updates a client information
 def atualiza_cliente(request, id):
     body = json.loads(request.body)
         

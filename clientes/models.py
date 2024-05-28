@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+# This is the model for clientes
 class Cliente(models.Model):
     nome = models.CharField(max_length=50)
     sobrenome = models.CharField(max_length=50)
@@ -11,6 +12,7 @@ class Cliente(models.Model):
     def __str__(self) -> str:
         return self.nome   
 
+# This is the model for the clients pets
 class Pet(models.Model):
     nome_pet = models.CharField(max_length=50)
     data_nascimento_pet = models.DateField()

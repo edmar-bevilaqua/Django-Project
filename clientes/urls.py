@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# This is the urls that the clientes app will manage
 urlpatterns = [
     path('', views.clientes, name="clientes"),
     path('atualizar_cliente', views.atualizar_cliente, name="atualizar_cliente"),
