@@ -7,6 +7,7 @@
 
 {% block 'dashboard' %}
     <div class="container">
+        <a href="{% url 'new_service' %}" class="btn btn-success" id="btn-new-service">+ New Service</a><br>
         <label for="filter">Filter:</label>
         <select name="filter" id="filter" class="form-control" onchange="update_list_services()">
             <option value="" selected hidden>Choose a client name to filter</option>
