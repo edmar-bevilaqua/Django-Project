@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from clientes.models import Cliente
+from servicos.models import Services
 from .forms import ServiceForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Defining the method to handle GET requests and render the /services.html/ page
 def new_service(request):
@@ -21,4 +24,12 @@ def new_service(request):
 
 def list_services(request):
     if request.method == "GET":
-        return render(request, 'list_services.html')
+        services = Services.objects.all()
+        clients = Cliente.objects.all()
+        print(type(services[0]))
+        return render(request, 'list_services.html', {'services':services, 'clients':clients})
+
+@csrf_exempt
+def update_list(request):
+    if request.method == "POST":
+        return JsonResponse({'teste':'teste'})
