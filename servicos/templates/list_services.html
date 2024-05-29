@@ -22,25 +22,25 @@
                 <th scope="col">Title</th>
                 <th scope="col">Client</th>
                 <th scope="col">Finished</th>
-                <th scope="col">Protocol</th>
+                <th scope="col">Identifier</th>
                 <th scope="col">Total Price</th>
               </tr>
             </thead>
             <tbody>
-              {% for service in services %}
+              {% for serv in services %}
                 <tr>
-                    <th scope="row">{{service.id}}</th>
-                    <td>{{service.title}}</td>
-                    <td>{{service.client}}</td>
+                    <th scope="row">{{serv.id}}</th>
+                    <td>{{serv.title}}</td>
+                    <td>{{serv.client}}</td>
                     <td>
-                    {% if service.finished %}
+                    {% if serv.finished %}
                         <span class="badge badge-success">Finalizado</span>
                     {% else %}
                         <span class="badge badge-info">Em Andamento</span>
                     {% endif %}
                     </td>
-                    <td>{{service.protocol}}</td>
-                    <th scope="row">R$ {{service.total_price}}</th>
+                    <td><a href="{% url 'service' serv.identifier %}">{{serv.identifier}}</a></td>
+                    <td>R$ {{serv.total_price}}</td>
                 </tr>
               {% endfor %}
             </tbody>

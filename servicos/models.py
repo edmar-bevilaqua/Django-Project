@@ -1,8 +1,9 @@
-from secrets import token_hex
+from secrets import token_hex, token_urlsafe
 from django.db import models
 from clientes.models import Cliente, Pet
 from .choices import ChoicesCategory
 from datetime import datetime
+
 
 # Creating the Category class:
 class Category(models.Model):
@@ -22,6 +23,7 @@ class Services(models.Model):
     date_final = models.DateTimeField(null=True)
     finished = models.BooleanField(default=False)
     protocol = models.CharField(max_length=32, null=True, blank=True)
+    identifier = models.CharField(max_length=24, null=True, blank=True)
     
     # Note: This methods utility is: when you print, the __str__ method is called
     # so in this case, the self.title is returned.
@@ -31,6 +33,9 @@ class Services(models.Model):
     def save(self, *args, **kwargs):
         if not self.protocol:
             self.protocol = datetime.now().strftime("%d/%m/%Y-%H:%M:%S-") + token_hex(5)
+        
+        if not self.identifier:
+            self.identifier = token_urlsafe(16)
         super(Services, self).save(*args, **kwargs)
         
     def total_price(self):
