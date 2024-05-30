@@ -12,7 +12,7 @@ class DateTimeInput(forms.DateTimeInput):
 class ServiceForm(ModelForm):
     class Meta:
         model = Services
-        exclude = ['finished', 'protocol']
+        exclude = ['finished', 'protocol', 'identifier']
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

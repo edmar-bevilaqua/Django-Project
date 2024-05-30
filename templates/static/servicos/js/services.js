@@ -1,3 +1,4 @@
+// Too costy method used to filter the table (kept for history)
 function update_list_services() {
     client_id = document.getElementById('filter').value
 
@@ -50,4 +51,32 @@ function update_list_services() {
         }
         table.innerHTML += "<tbody>" + html_text + "</tbody>"
     })
+}
+
+// Better function to filter the table
+function filter_table() {
+    let input, table, tr, td, i, txtValue;
+
+    input = document.getElementById('filter').value;
+    table = document.getElementById('services_list');
+    tr = table.getElementsByTagName('tr');
+
+    if (input == 'ALL') {
+        for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "";
+        }
+    } else {
+        // Looping through all table rows, hiding those that don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName('td')[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 }

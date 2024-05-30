@@ -9,10 +9,11 @@
     <div class="container">
         <a href="{% url 'new_service' %}" class="btn btn-success" id="btn-new-service">+ New Service</a><br>
         <label for="filter">Filter:</label>
-        <select name="filter" id="filter" class="form-control" onchange="update_list_services()">
+        <select name="filter" id="filter" class="form-control" onchange="filter_table()">
             <option value="" selected hidden>Choose a client name to filter</option>
+            <option value="ALL">ALL</option>
             {% for client in clients %}
-                <option value="{{client.id}}">{{client.nome}}</option>
+                <option value="{{client.nome}}">{{client.nome}}</option>
             {% endfor %}
         </select>
         <br>

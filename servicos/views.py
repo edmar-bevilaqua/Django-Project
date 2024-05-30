@@ -25,12 +25,15 @@ def new_service(request):
             print("Houve um problema salvando o arquivo")
             return render(request, 'new_service.html', {'form': form})
 
+# This method lists all services.
 def list_services(request):
     if request.method == "GET":
         services = Services.objects.all()
         clients = Cliente.objects.all()
-        print(type(services[0]))
-        return render(request, 'list_services.html', {'services':services, 'clients':clients})
+        if len(services) > 0:
+            return render(request, 'list_services.html', {'services':services, 'clients':clients})
+        else:
+            return HttpResponse("There is no service to be listed!")
 
 # This method updates the services list based on the client selected
 @csrf_exempt
