@@ -2,14 +2,19 @@
 {% load static %}
 
 {% block 'head' %}
-    <link rel="stylesheet" href="{% static 'servicos/css/new_service.css' %}">
+    <link rel="stylesheet" href="{% static 'servicos/css/services.css' %}">
 {% endblock %}
 
 {% block 'dashboard' %}
     <div class="container">
+        <a href="{% url 'generate_SO' service_details.identifier %}" class="btn btn-info" id="pdf">
+            <i class="fa-solid fa-file-pdf" id="pdf-icon"></i>
+        </a>
+        <br>
         {{service_details.title}}
         {{service_details.protocol}}
 
     </div>
     <script src="{% static 'servicos/js/services.js' %}"></script>
+    <script src="https://kit.fontawesome.com/917afdb6bd.js" crossorigin="anonymous"></script>
 {% endblock 'dashboard' %}

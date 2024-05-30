@@ -3,10 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from clientes.models import Cliente
 from servicos.models import Services
 from .forms import ServiceForm
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.urls import reverse
+from fpdf import FPDF
+from io import BytesIO
 
 # Defining the method to handle GET requests and render the /services.html/ page
 def new_service(request):
@@ -64,3 +66,55 @@ def view_service(request, identifier):
     if request.method == "GET":
         service = get_object_or_404(Services, identifier=identifier)
         return render(request, 'service.html', {'service_details': service})
+    
+
+def generate_SO(request, identifier):
+    service = get_object_or_404(Services, identifier = identifier)
+    
+    pdf = FPDF()
+    pdf.add_page()
+
+    
+
+    pdf.rect(5., 5., 200., 287.)
+
+    pdf.image("templates\static\servicos\images\logo.jpg", 79, 10, 52, 40)
+
+    pdf.set_xy(10., 53)
+    pdf.set_font(family='Arial', style='B', size=32)
+    pdf.cell(w=0, h=10, border=0, txt="J&J PETSHOP", align='C', ln=1)
+    pdf.cell(w=0, h=10, border=0, txt="", align='L', ln=1)
+    pdf.set_title("J&J PETSHOP")
+
+    pdf.set_font(family='Arial', style='B', size=16)
+    pdf.set_fill_color(240, 240, 240)
+    pdf.cell(w=35, h=10, border=0, txt="Client:", align='L', ln=0)
+    pdf.cell(w=0, h=10, border=1, txt=f"{service.client.nome} {service.client.sobrenome}", align='L', ln=1)
+    pdf.cell(w=35, h=10, border=0, txt="CPF:", align='L', ln=0)
+    pdf.cell(w=0, h=10, border=1, txt=f"{service.client.cpf}", align='L', ln=1)
+    pdf.cell(w=35, h=10, border=0, txt="Protocol:", align='L', ln=0)
+    pdf.cell(w=0, h=10, border=1, txt=f"{service.protocol}", align='L', ln=1)
+
+    pdf.cell(w=35, h=10, border=0, txt="", align='L', ln=1)
+
+    pdf.cell(w=35, h=10, border=0, txt="Initial Date:", align='L', ln=0)
+    pdf.cell(w=0, h=10, border=1, txt=f"{service.date_init}", align='L', ln=1)
+    pdf.cell(w=35, h=10, border=0, txt="Final Date:", align='L', ln=0)
+    pdf.cell(w=0, h=10, border=1, txt=f"{service.date_final}", align='L', ln=1)
+
+    pdf.cell(w=35, h=10, border=0, txt="", align='L', ln=1)
+
+    pdf.cell(w=35, h=10, border=0, txt="Service Categories:", align='L', ln=2)
+
+    for category in service.service_category.all():
+        pdf.cell(w=160, h=10, border=1, txt=f"-   {category.get_title_display()}", align='L', ln=0)
+        pdf.cell(w=30, h=10, border=1, txt=f"R$ {category.price}", align='C', ln=1)
+    pdf.cell(w=160, h=10, border=0, txt="Total     ", align='R', ln=0)
+    pdf.cell(w=30, h=10, border=0, txt=f"R$ {service.total_price()}", align='C', ln=1)
+    
+    pdf.image("templates\static\servicos\images\dog.jpg", 60, 200, 90, 90)
+
+    pdf_content = pdf.output(dest='S').encode('latin1')
+    pdf_bytes = BytesIO(pdf_content)
+
+    return FileResponse(pdf_bytes, filename=f"SO-{service.protocol}.pdf")
