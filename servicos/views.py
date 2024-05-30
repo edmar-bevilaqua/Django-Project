@@ -117,4 +117,4 @@ def generate_SO(request, identifier):
     pdf_content = pdf.output(dest='S').encode('latin1')
     pdf_bytes = BytesIO(pdf_content)
 
-    return FileResponse(pdf_bytes, filename=f"SO-{service.protocol}.pdf")
+    return FileResponse(pdf_bytes, as_attachment=True, filename=f"SO-{service.protocol}.pdf")
