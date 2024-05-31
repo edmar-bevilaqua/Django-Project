@@ -127,3 +127,14 @@ def atualiza_cliente(request, id):
     except:
         print('Atualização no banco falhou!')
         return JsonResponse({'status':'500', 'nome': nome, 'sobrenome': sobrenome, 'email': email, 'cpf': cpf})
+
+def list_clients(request):
+    if request.method == 'GET':
+        client_list = Cliente.objects.all()
+        pets_dict_ids = {}
+        for num in [pet.cliente.id for pet in Pet.objects.all()]:
+            if num in pets_dict_ids:
+                pets_dict_ids[num] += 1
+            else:
+                pets_dict_ids[num] = 1
+        return render(request, 'list_clients.html', {'clients' : client_list, 'pets_dict_ids': pets_dict_ids})
