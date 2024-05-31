@@ -1,35 +1,48 @@
-.card-dashboard{
+.card-dashboard {
 
     background-color: var(--main-color);
-    width: 50%;
-    margin-left: 10px;
-    margin-top: 40px;
     text-align: center;
     padding: 20px;
     cursor: pointer;
+    border: 2px solid var(--dark-color);
+    border-radius: 15px;
+    margin-right: 15px;
 }
 
-.text-card{
+.card-dashboard:hover {
 
+    background-color: var(--light-color);
+}
+
+.card-dashboard:last-child {
+    margin-right: 0;
+}
+
+.text-card {
     font-size: 25px;
-
+    margin: 0;
 }
 
 .btn-add-pets{
-
     background-color: var(--contrast-color);
     padding: 5px;
     font-weight: bold;
     cursor: pointer;
-
 }
 
 .btn-principal{
     color:white;
     border: none;
     background-color: var(--dark-color);
-    padding: 5px;
+    padding: 15px;
     font-size: 30px;
+    border-radius: 10px;
+    border: 2px solid var(--light-color);
+}
+
+.btn-principal:hover {
+    background-color: var(--main-color);
+    transition: all 0.35s;
 }
 
 #atualizar-cliente {
@@ -47,22 +60,62 @@
 }
 
 #lista-pets {
-    margin-top: 45px;
+    margin-top: 10px;
     padding-bottom: 20px;
 }
 
 #lista-pets form {
-    margin-top: 15px;
+    margin-top: 25px;
 }
 
 #opt-add-pets {
     display: none;
 }
 
+#atualizar {
+    width: 100%;
+}
 a.btn.btn-danger {
-    margin-left: 10px;
     display: flex;
     vertical-align: middle;
     align-items: center;
     justify-content: center;
+}
+
+.btn.btn-info {
+    background-color: var(--main-color);
+    color: whitesmoke;
+}
+
+#btns-add-upd {
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.btn-register {
+    display: flex;
+    vertical-align: bottom;
+}
+
+.btn.btn-success.add {
+    width: 100%;
+}
+
+.row.pet {
+    margin-top: 20px;
+}
+
+.delete {
+    display: flex;
+    justify-content: center;
+}
+
+.delete button {
+    height: 38px;
+    margin-top: auto;
+    width: 75%;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    border: 1px solid rgb(85, 25, 25);
 }

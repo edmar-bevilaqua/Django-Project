@@ -7,12 +7,12 @@
 
 {% block 'dashboard' %}
 	<div class="container">
-		<div class="row">
+		<div class="row" id="btns-add-upd">
 			<div onclick="exibir_form('1')" class="col-md card-dashboard">
-				<p class="text-card">Adicionar Clientes</p>
+				<p class="text-card">Add Client</p>
 			</div>
 			<div onclick="exibir_form('2')" class="col-md card-dashboard">
-				<p class="text-card">Atualizar Clientes</p>
+				<p class="text-card">Update Client</p>
 			</div>
 		</div>
 
@@ -20,43 +20,43 @@
 			<form action="{% url 'clientes' %}" method="POST">{% csrf_token %}
 				<div class="row">
 					<div class="col-md">
-						<label for="nome">Nome:</label>
-						<input type="text" class="form-control" placeholder="Primeiro nome" name="nome" value="{{nome}}">
+						<label for="nome">Name:</label>
+						<input type="text" class="form-control" placeholder="First name" name="nome" value="{{nome}}">
 					</div>
 					<div class="col-md">
-						<label for="sobrenome">Sobrenome:</label>
-						<input type="text" class="form-control" placeholder="Sobrenome" name="sobrenome" value="{{sobrenome}}">
+						<label for="sobrenome">Surname:</label>
+						<input type="text" class="form-control" placeholder="Surname" name="sobrenome" value="{{sobrenome}}">
 					</div>
 				</div>
 				<br>
 				<label for="email">E-Mail:</label>
-				<input type="email" class="form-control" placeholder="nome@email.com" name="email" value="{{email}}">
+				<input type="email" class="form-control" placeholder="name@email.com" name="email" value="{{email}}">
 				<br>
 				<label for="cpf">CPF:</label>
 				<input type="text" class="form-control" placeholder="___.___.___-__" name="cpf" value="{{cpf}}">
 				<hr style="background-color:gray;">
 				<div class="add-pets">
 					<h3>Pets</h3>
-					<span class="btn-add-pets" onclick="add_pet()">+ Adicionar um Pet</span>
+					<span class="btn btn-info" onclick="add_pet()">+ Add Pet</span>
 					<div id="form-pet">
 						{% for pet, data, porte in pets %}
 							<br>
 							<div class='row'>
-								<div class='col-md'>
-									<label for='pet'>Nome do Pet:</label>
-									<input type='text' placeholder='Nome do Pet' class='form-control' name='pet' value="{{pet}}">
+								<div class='col-md-4'>
+									<label for='pet'>Pet Name:</label>
+									<input type='text' placeholder='Pet Name' class='form-control' name='pet' value="{{pet}}">
 								</div>
-								<div class='col-md'>
-									<label for='data-nascimento'>Data de Nascimento:</label>
-									<input type='date' placeholder='DD/MM/AAAA' class='form-control' name='data-nascimento' value="{{data}}">
+								<div class='col-md-4'>
+									<label for='data-nascimento'>Birth Date:</label>
+									<input type='date' placeholder='DD/MM/YYYY' class='form-control' name='data-nascimento' value="{{data}}">
 								</div>
-								<div class='col-md'>
-									<label for='porte'>Porte do Pet:</label>
+								<div class='col-md-4'>
+									<label for='porte'>Pet Size:</label>
 									<select name='porte' class='form-control'>
 										<option value="{{porte}}" selected hidden>{{porte}}</option>
-										<option value='pequeno'>Pequeno</option>
-										<option value='medio'>Médio</option>
-										<option value='grande'>Grande</option>
+										<option value='pequeno'>Small</option>
+										<option value='medio'>Medium</option>
+										<option value='grande'>Big</option>
 									</select>
 								</div>
 							</div>
@@ -64,15 +64,15 @@
 					</div>
 				</div>
 				<br>
-				<input type="submit" value="Cadastrar" class="btn-principal">
+				<input type="submit" value="Submit" class="btn-principal">
 			</form>
 		</div>
 
 		<div id="atualizar-cliente">
 			
-			<label for="lista-clientes">Qual cliente gostaria de atualizar?</label>
+			<label for="lista-clientes">Which client would you like to update?</label>
 			<select onchange="dados_cliente()" name="lista-clientes" class="form-control" id="cliente-select">
-				<option disabled selected hidden value>Selecione um cliente para atualizar</option>
+				<option disabled selected hidden value>Select a client to update</option>
 				{% for cliente in clientes %}
 				<option value="{{cliente.id}}">{{cliente.nome}}</option>
 				{% endfor %}
@@ -81,12 +81,12 @@
 					<input type="hidden" id="id">
 					<div class="row">
 						<div class="col-md">
-							<label for="att-nome">Nome:</label>
-							<input type="text" class="form-control" placeholder="Primeiro nome" name="att-nome" id="att-nome">
+							<label for="att-nome">Name:</label>
+							<input type="text" class="form-control" placeholder="Name" name="att-nome" id="att-nome">
 						</div>
 						<div class="col-md">
-							<label for="att-sobrenome">Sobrenome:</label>
-							<input type="text" class="form-control" placeholder="Sobrenome" name="att-sobrenome" id="att-sobrenome">
+							<label for="att-sobrenome">Surname:</label>
+							<input type="text" class="form-control" placeholder="Surname" name="att-sobrenome" id="att-sobrenome">
 						</div>
 					</div>
 					<label for="att-email">E-Mail:</label>
@@ -99,7 +99,7 @@
 			</div>
 			<div id="opt-add-pets">
 				<h3>Pets</h3>
-				<span class="btn-add-pets" onclick="add_pet_atualiza()">+ Adicionar um Pet</span>
+				<span class="btn btn-info" onclick="add_pet_atualiza()">+ Add Pet</span>
 			<div id="lista-pets">
 			</div>
 			<div id="add-pets">
