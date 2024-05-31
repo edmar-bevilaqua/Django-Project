@@ -10,8 +10,8 @@ class Cliente(models.Model):
     cpf = models.CharField(max_length=12)
     
     def __str__(self) -> str:
-        return self.nome   
-
+        return self.nome
+    
 # This is the model for the clients pets
 class Pet(models.Model):
     nome_pet = models.CharField(max_length=50)

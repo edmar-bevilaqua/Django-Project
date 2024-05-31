@@ -173,3 +173,30 @@ function deleteRow(button) {
     console.log(row)
     row.parentNode.removeChild(row); // Remove the row
 }
+
+function filter_table() {
+    let input, table, tr, td, i, txtValue;
+
+    input = document.getElementById('filter').value;
+    table = document.getElementById('services_list');
+    tr = table.getElementsByTagName('tr');
+
+    if (input == 'ALL') {
+        for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "";
+        }
+    } else {
+        // Looping through all table rows, hiding those that don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName('td')[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+}

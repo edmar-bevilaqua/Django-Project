@@ -12,10 +12,13 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 .home-section{
   background: #2A2A2A;
   color: white;
+  margin-bottom: 50px;
 }
 
 .container {
@@ -62,4 +65,25 @@ html, body {
 }
 .dropdown-item:hover {
     background-color: var(--light-color);
+}
+
+#footer {
+    background-color: var(--dark-color);
+    margin-top: auto;
+    display: flex;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+}
+
+#footer p, #footer a {
+    color: whitesmoke;
+}
+
+#footer .container {
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+#footer img {
+    height: 40px;
+    width: 52px;
 }
