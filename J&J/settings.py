@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     
     # Apps próprios
     "clientes",
-    "servicos"
+    "servicos",
+    "users"
 ]
 
 MIDDLEWARE = [

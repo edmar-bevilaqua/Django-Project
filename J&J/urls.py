@@ -23,5 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('clientes/', include('clientes.urls')),
     path("servicos/", include('servicos.urls')),
+    path("users/", include('django.contrib.auth.urls')),
+    path("users/", include('users.urls')),
     re_path("", views.index, name='index')
 ]
