@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+    {% if user.is_authenticated %}
     <div class="container">
         <a href="{% url 'new_service' %}" class="btn btn-success" id="btn-new-service">+ New Service</a><br>
         <label for="filter">Filter:</label>
@@ -49,4 +50,15 @@
           </table>
     </div>
     <script src="{% static 'servicos/js/services.js' %}"></script>
+    {% else %}
+        <div class="container">
+            <div class="p-5 mb-4 rounded-3">
+                <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Uh oh!</h1>
+                <p class="col-md-8 fs-4">You weren't supposed to get here without being logged in. Please log in before trying to access this page.</p>
+                <a href="{% url 'login_user' %}"><button class="btn btn-primary btn-lg" type="button">Login</button></a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock 'dashboard' %}

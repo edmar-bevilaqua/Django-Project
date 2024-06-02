@@ -79,11 +79,24 @@ html, body {
 }
 
 #footer .container {
-    margin-top: auto;
     padding-top: 25px;
 }
 
 #footer img {
     height: 40px;
     width: 52px;
+}
+
+.login-logout {
+    background-color: #021820;
+    color: whitesmoke;
+    border: 2px solid #06222c;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.alert-warning {
+    background-color: rgba(224, 217, 154, 0.856);
 }
